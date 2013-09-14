@@ -38,9 +38,10 @@
     sortArray = [[listArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] retain];
     
 }
+
 - (IBAction)readTextPutin:(id)sender {
     
-    NSLog(@"======================= Sort ==================");
+    NSLog(@"======================= read text ==================");
     [sortArray dump];
     //    for (NSString *object in sortArray) {
     //        NSLog(@"%@", object);
@@ -48,14 +49,19 @@
     
     
 }
-- (IBAction)sortForLength:(id)sender {
+
+- (IBAction)couterString:(id)sender {
     NSLog(@"======================= counter ==================");
-    NSCountedSet *countedSet = [[NSCountedSet alloc] initWithArray: sortArray];
+    NSCountedSet *countedSet = [[NSCountedSet alloc] initWithArray: [sortArray retain]];
     for (id object in countedSet) {
         NSLog(@"%@ - %d", object, [countedSet countForObject:object]);
     }
-    
-    sortArray = [sortArray sortedArrayUsingComparator:^(id str1, id str2){
+
+}
+
+- (IBAction)sortForLength:(id)sender {
+    NSArray *tempArray = [[NSArray alloc] init];
+    tempArray = [sortArray sortedArrayUsingComparator:^(id str1, id str2){
         
         if (((NSString *) str1).length >= ((NSString *) str2).length) {
             return NSOrderedDescending;
@@ -67,11 +73,11 @@
     
     NSLog(@"======================= counter ==================");
     int i = 1;
-    while (i <= ((NSString *)[sortArray lastObject]).length) {
+    while (i <= ((NSString *)[tempArray lastObject]).length) {
         //         NSLog(@"===============================================");
         NSLog(@"==============length = %d ======================", i);
         
-        for (NSString * str in sortArray) {
+        for (NSString * str in tempArray) {
             if (str.length == i) {
                 NSLog(@"%@",  str);
             }
